@@ -1,0 +1,22 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Clinic.Domain.Entities
+{
+    public class Specialty
+    {
+        public int SpecialtyId { get; set; }
+        public string Name { get; set; } = null!;
+
+        public string? Description { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public DateTime UpdatedAt { get; set; }
+
+        //Navigation
+        public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
+
+    }
+}

@@ -9,6 +9,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Api", "src\Clinic.Ap
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Web", "src\Clinic.Web\Clinic.Web.csproj", "{3F77F756-8749-45DB-A08A-4D023A21FCDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Domain", "src\Clinic.Domain\Clinic.Domain.csproj", "{279C5255-7528-4C45-B4D5-EEED778C56BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Infrastructure", "src\Clinic.Infrastructure\Clinic.Infrastructure.csproj", "{5A7364F1-27FF-43EE-9875-468C20DFF0DB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +30,19 @@ Global
 		{3F77F756-8749-45DB-A08A-4D023A21FCDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3F77F756-8749-45DB-A08A-4D023A21FCDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3F77F756-8749-45DB-A08A-4D023A21FCDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{279C5255-7528-4C45-B4D5-EEED778C56BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{279C5255-7528-4C45-B4D5-EEED778C56BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{279C5255-7528-4C45-B4D5-EEED778C56BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{279C5255-7528-4C45-B4D5-EEED778C56BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F6459416-402B-4F79-A7E1-668A48C45ABF} = {92B1C6BF-22A2-4AD2-A503-987924A55F4F}
 		{3F77F756-8749-45DB-A08A-4D023A21FCDD} = {92B1C6BF-22A2-4AD2-A503-987924A55F4F}
+		{279C5255-7528-4C45-B4D5-EEED778C56BC} = {92B1C6BF-22A2-4AD2-A503-987924A55F4F}
+		{5A7364F1-27FF-43EE-9875-468C20DFF0DB} = {92B1C6BF-22A2-4AD2-A503-987924A55F4F}
 	EndGlobalSection
 EndGlobal

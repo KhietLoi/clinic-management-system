@@ -1,0 +1,12 @@
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\bin\Debug\net8.0\Clinic.Domain.deps.json
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\bin\Debug\net8.0\Clinic.Domain.dll
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\bin\Debug\net8.0\Clinic.Domain.pdb
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.AssemblyInfoInputs.cache
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.AssemblyInfo.cs
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.csproj.CoreCompileInputs.cache
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.sourcelink.json
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.dll
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\refint\Clinic.Domain.dll
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\Clinic.Domain.pdb
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Domain\obj\Debug\net8.0\ref\Clinic.Domain.dll
