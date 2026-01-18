@@ -1,11 +1,3 @@
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.AssemblyInfoInputs.cache
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.AssemblyInfo.cs
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.csproj.CoreCompileInputs.cache
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.RazorAssemblyInfo.cache
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.RazorAssemblyInfo.cs
-C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.sourcelink.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\bin\Debug\net8.0\appsettings.Development.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\bin\Debug\net8.0\appsettings.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\bin\Debug\net8.0\Clinic.Web.staticwebassets.runtime.json
@@ -14,6 +6,14 @@ C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.We
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\bin\Debug\net8.0\Clinic.Web.runtimeconfig.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\bin\Debug\net8.0\Clinic.Web.dll
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\bin\Debug\net8.0\Clinic.Web.pdb
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.AssemblyInfoInputs.cache
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.AssemblyInfo.cs
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.csproj.CoreCompileInputs.cache
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.RazorAssemblyInfo.cache
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.RazorAssemblyInfo.cs
+C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\Clinic.Web.sourcelink.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\staticwebassets.build.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\lpn31\Computer\CLINIC_MANAGEMENT\clinic-management-system\src\Clinic.Web\obj\Debug\net8.0\staticwebassets\msbuild.Clinic.Web.Microsoft.AspNetCore.StaticWebAssets.props

@@ -10,6 +10,9 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Infrastructure
+var cs = builder.Configuration.GetConnectionString("ClinicDB");
+Console.WriteLine("=== ClinicDB CS === " + cs);
+
 builder.Services.AddInfrastructure(builder.Configuration);
 var app = builder.Build();
 
@@ -40,6 +43,13 @@ app.MapGet("/weatherforecast", () =>
     return forecast;
 })
 .WithName("GetWeatherForecast");
+
+//SEEDER
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ClinicDbContext>();
+    await ClinicDbSeeder.SeedAsync(db);
+}
 
 
 app.Run();

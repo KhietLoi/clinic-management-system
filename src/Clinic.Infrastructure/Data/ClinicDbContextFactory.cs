@@ -4,22 +4,24 @@ using Microsoft.Extensions.Configuration;
 
 namespace Clinic.Infrastructure.Data
 {
-    public class ClinicDbContextFactory
-        : IDesignTimeDbContextFactory<ClinicDbContext>
+    public class ClinicDbContextFactory : IDesignTimeDbContextFactory<ClinicDbContext>
     {
         public ClinicDbContext CreateDbContext(string[] args)
         {
-            // đọc appsettings.json
+            // trỏ thẳng sang Clinic.Api để lấy appsettings đúng
+            var basePath = Path.Combine(Directory.GetCurrentDirectory(), "..", "Clinic.Api");
+
             var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json", optional: false)
+                .AddJsonFile("appsettings.Development.json", optional: true)
+              
                 .Build();
 
-            var optionsBuilder = new DbContextOptionsBuilder<ClinicDbContext>();
+            var cs = config.GetConnectionString("ClinicDB");
 
-            optionsBuilder.UseSqlServer(
-                config.GetConnectionString("ClinicDB")
-            );
+            var optionsBuilder = new DbContextOptionsBuilder<ClinicDbContext>();
+            optionsBuilder.UseSqlServer(cs);
 
             return new ClinicDbContext(optionsBuilder.Options);
         }

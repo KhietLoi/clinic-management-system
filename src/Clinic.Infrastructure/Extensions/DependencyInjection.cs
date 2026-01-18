@@ -7,11 +7,17 @@ namespace Clinic.Infrastructure.Extensions
 {
     public static class DependencyInjection
     {
-        //ket noi DB:
-        public static IServiceCollection AddInfrastructure (this IServiceCollection services, IConfiguration config)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<ClinicDbContext>(options =>
-            options.UseSqlServer(config.GetConnectionString("ClinicDB")));
+            var cs = config.GetConnectionString("ClinicDB") ?? "";
+
+            // ép SSL options cho local SQL Express
+            if (!cs.Contains("Encrypt=", StringComparison.OrdinalIgnoreCase))
+                cs += (cs.EndsWith(";") ? "" : ";") + "Encrypt=True;";
+            if (!cs.Contains("TrustServerCertificate=", StringComparison.OrdinalIgnoreCase))
+                cs += "TrustServerCertificate=True;";
+
+            services.AddDbContext<ClinicDbContext>(options => options.UseSqlServer(cs));
             return services;
         }
     }
