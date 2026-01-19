@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Clinic.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+693f718c2ab440070e28feb969dd3990a595512f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edfc60a55350886c8dc6924656ab757fdf1a9a95")]
 [assembly: System.Reflection.AssemblyProductAttribute("Clinic.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Clinic.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

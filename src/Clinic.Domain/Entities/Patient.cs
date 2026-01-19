@@ -19,7 +19,7 @@ namespace Clinic.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
-        public string? NationalId { get; set; }
+        public string NationalId { get; set; } = null!;
 
         //Navigation
         public ICollection<MedicalRecord> MedicalRecords { get; set; } = new List<MedicalRecord>();
