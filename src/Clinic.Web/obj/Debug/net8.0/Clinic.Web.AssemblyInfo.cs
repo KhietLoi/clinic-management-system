@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Clinic.Web")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+693f718c2ab440070e28feb969dd3990a595512f")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4d838e0243853bd969fe591fafa1a2b6768dbbe8")]
 [assembly: System.Reflection.AssemblyProductAttribute("Clinic.Web")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Clinic.Web")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

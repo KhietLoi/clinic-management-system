@@ -66,7 +66,7 @@ namespace Clinic.Api.Services.Implementations
             //neu da ton tai:
             if (exists)
             {
-                throw new InvalidOperationException("Phone already exists. ");
+                throw new InvalidOperationException("NationalId  already exists.");
             }
 
             //Create new Patient
@@ -84,6 +84,7 @@ namespace Clinic.Api.Services.Implementations
 
             };
             _db.Patients.Add(entity);
+            await _db.SaveChangesAsync();
             return entity.PatientId;
         }
 
