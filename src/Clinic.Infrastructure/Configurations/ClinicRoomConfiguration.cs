@@ -26,12 +26,16 @@ namespace Clinic.Infrastructure.Configurations
             builder.Property(x => x.Location).HasMaxLength(200);
             builder.Property(x => x.Description).HasMaxLength(500);
 
-          /*  //1-n Appointments
-            builder
-                .HasMany(x=>x.Appointments)
-                .WithOne(x => x.ClinicRoom)
-                .HasForeignKey(x => x.ClinicRoomId)
-                .OnDelete(DeleteBehavior.Restrict);*/
+           
+
+
+
+            /*  //1-n Appointments
+              builder
+                  .HasMany(x=>x.Appointments)
+                  .WithOne(x => x.ClinicRoom)
+                  .HasForeignKey(x => x.ClinicRoomId)
+                  .OnDelete(DeleteBehavior.Restrict);*/
 
 
 

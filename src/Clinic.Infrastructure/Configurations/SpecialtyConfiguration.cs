@@ -1,4 +1,5 @@
 ﻿using Clinic.Domain.Entities;
+using Clinic.Domain.Entities.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -23,12 +24,24 @@ namespace Clinic.Infrastructure.Configurations
             builder.Property(x => x.Description)
                 .HasMaxLength(500);
 
-          /*  //1-n Doctors:
             builder
-                .HasMany(x => x.Doctors)
-                .WithOne(x => x.Specialty)
-                .HasForeignKey(x => x.SpecialtyId)
-                .OnDelete(DeleteBehavior.Restrict);*/
+                .HasIndex(x => x.Name)
+                .IsUnique();
+
+            builder.Property(x => x.IsActive)
+                .HasDefaultValue(SpecialtyStatus.Active);
+            //1-1
+            builder.HasOne(s => s.ClinicRoom)
+               .WithOne(r => r.Specialty)
+               .HasForeignKey<ClinicRoom>(r => r.SpecialtyId)
+               .OnDelete(DeleteBehavior.Restrict);
+
+            /*  //1-n Doctors:
+              builder
+                  .HasMany(x => x.Doctors)
+                  .WithOne(x => x.Specialty)
+                  .HasForeignKey(x => x.SpecialtyId)
+                  .OnDelete(DeleteBehavior.Restrict);*/
 
         }
     }

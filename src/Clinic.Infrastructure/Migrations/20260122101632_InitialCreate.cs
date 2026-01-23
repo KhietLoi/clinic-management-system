@@ -12,23 +12,6 @@ namespace Clinic.Infrastructure.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "ClinicRooms",
-                columns: table => new
-                {
-                    ClinicRoomId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ClinicRooms", x => x.ClinicRoomId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Medicines",
                 columns: table => new
                 {
@@ -89,7 +72,8 @@ namespace Clinic.Infrastructure.Migrations
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    IsActive = table.Column<byte>(type: "tinyint", nullable: false, defaultValue: (byte)0)
                 },
                 constraints: table =>
                 {
@@ -122,6 +106,30 @@ namespace Clinic.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ClinicRooms",
+                columns: table => new
+                {
+                    ClinicRoomId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    SpecialtyId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ClinicRooms", x => x.ClinicRoomId);
+                    table.ForeignKey(
+                        name: "FK_ClinicRooms_Specialties_SpecialtyId",
+                        column: x => x.SpecialtyId,
+                        principalTable: "Specialties",
+                        principalColumn: "SpecialtyId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Doctors",
                 columns: table => new
                 {
@@ -135,7 +143,7 @@ namespace Clinic.Infrastructure.Migrations
                     Gender = table.Column<byte>(type: "tinyint", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SpecialtyId = table.Column<int>(type: "int", nullable: false),
+                    SpecialtyId = table.Column<int>(type: "int", nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -309,6 +317,13 @@ namespace Clinic.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClinicRooms_SpecialtyId",
+                table: "ClinicRooms",
+                column: "SpecialtyId",
+                unique: true,
+                filter: "[SpecialtyId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_Phone",
                 table: "Doctors",
                 column: "Phone",
@@ -368,6 +383,12 @@ namespace Clinic.Infrastructure.Migrations
                 name: "IX_Prescriptions_MedicalRecordId",
                 table: "Prescriptions",
                 column: "MedicalRecordId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Specialties_Name",
+                table: "Specialties",
+                column: "Name",
                 unique: true);
 
             migrationBuilder.CreateIndex(

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Clinic.Domain.Entities.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,14 @@ namespace Clinic.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
 
+        //n-1
+        public int? SpecialtyId { get; set; }
+        public Specialty? Specialty { get; set; }
+
+
+
         //Navigation
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();
+
     }
 }

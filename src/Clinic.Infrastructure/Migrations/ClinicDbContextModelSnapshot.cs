@@ -96,6 +96,9 @@ namespace Clinic.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<int?>("SpecialtyId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
@@ -103,6 +106,10 @@ namespace Clinic.Infrastructure.Migrations
 
                     b.HasIndex("Name")
                         .IsUnique();
+
+                    b.HasIndex("SpecialtyId")
+                        .IsUnique()
+                        .HasFilter("[SpecialtyId] IS NOT NULL");
 
                     b.ToTable("ClinicRooms", (string)null);
                 });
@@ -138,7 +145,7 @@ namespace Clinic.Infrastructure.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
-                    b.Property<int>("SpecialtyId")
+                    b.Property<int?>("SpecialtyId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -408,15 +415,23 @@ namespace Clinic.Infrastructure.Migrations
                         .HasMaxLength(500)
                         .HasColumnType("nvarchar(500)");
 
+                    b.Property<byte>("IsActive")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint")
+                        .HasDefaultValue((byte)0);
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<DateTime>("UpdatedAt")
+                    b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("SpecialtyId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Specialties", (string)null);
                 });
@@ -498,13 +513,22 @@ namespace Clinic.Infrastructure.Migrations
                     b.Navigation("Patient");
                 });
 
+            modelBuilder.Entity("Clinic.Domain.Entities.ClinicRoom", b =>
+                {
+                    b.HasOne("Clinic.Domain.Entities.Specialty", "Specialty")
+                        .WithOne("ClinicRoom")
+                        .HasForeignKey("Clinic.Domain.Entities.ClinicRoom", "SpecialtyId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Specialty");
+                });
+
             modelBuilder.Entity("Clinic.Domain.Entities.Doctor", b =>
                 {
                     b.HasOne("Clinic.Domain.Entities.Specialty", "Specialty")
                         .WithMany("Doctors")
                         .HasForeignKey("SpecialtyId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Clinic.Domain.Entities.User", "User")
                         .WithOne("Doctor")
@@ -632,6 +656,8 @@ namespace Clinic.Infrastructure.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Entities.Specialty", b =>
                 {
+                    b.Navigation("ClinicRoom");
+
                     b.Navigation("Doctors");
                 });
 

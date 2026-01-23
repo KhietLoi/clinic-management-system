@@ -38,7 +38,7 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 //DI:
 builder.Services.AddScoped<IPatientService, PatientService>();
-
+builder.Services.AddScoped<ISpecialtyService, SpecialtyService>();
 
 var app = builder.Build();
 
