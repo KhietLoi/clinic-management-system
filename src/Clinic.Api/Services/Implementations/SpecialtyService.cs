@@ -48,37 +48,31 @@ namespace Clinic.Api.Services.Implementations
 
         }
         //ADMIN HE THONG
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
-           
-
-            //Logic xu li: Khi một specialty ko con bac si hoat dong, va trang thai cua no la dong thi co the xoa:
             var entity = await _clinicDb.Specialties
-               .Include(s => s.ClinicRoom)
-               .FirstOrDefaultAsync(s => s.SpecialtyId == id);
+                .Include(s => s.ClinicRoom)
+                .FirstOrDefaultAsync(s => s.SpecialtyId == id);
 
-            if (entity == null) return false;
+            if (entity == null)
+                throw new KeyNotFoundException("Specialty not found.");
 
-            //Chi cho xoa khoa khi da dong:
             if (entity.IsActive != SpecialtyStatus.Closed)
                 throw new InvalidOperationException("Only closed specialties can be deleted.");
 
-            //Khong con bac si:
-            var hasAnyDoctor = await _clinicDb.Doctors.AnyAsync(d => d.SpecialtyId == id);
-            if (hasAnyDoctor) {
-                throw new InvalidOperationException("Cannot delete specialty because doctors exist."); }
+            var hasAnyDoctor = await _clinicDb.Doctors
+                .AnyAsync(d => d.SpecialtyId == id);
 
+            if (hasAnyDoctor)
+                throw new InvalidOperationException("Cannot delete specialty because doctors exist.");
 
-
-            //Khong co phong nao:
             if (entity.ClinicRoom != null)
                 throw new InvalidOperationException("Unassign clinic room first.");
 
             _clinicDb.Specialties.Remove(entity);
             await _clinicDb.SaveChangesAsync();
-            return true;
-
         }
+
 
         //Lay danh sach Khoa
         public async Task<IReadOnlyList<SpecialtyResponseDto>> GetAllAsync(string? keyword)
@@ -103,78 +97,78 @@ namespace Clinic.Api.Services.Implementations
         }
 
         //Lay doi tuong mot khoa cu the thong qua ID
-        public async Task<SpecialtyResponseDto?> GetByIdAsync(int id)
+        public async Task<SpecialtyResponseDto> GetByIdAsync(int id)
         {
-            return await _clinicDb.Specialties.AsNoTracking()
+            var specialty = await _clinicDb.Specialties.AsNoTracking()
                 .Where(s => s.SpecialtyId == id)
                 .Select(s => new SpecialtyResponseDto
                 {
                     SpecialtyId = s.SpecialtyId,
                     Name = s.Name,
                     Description = s.Description,
-                    IsActive= s.IsActive
+                    IsActive = s.IsActive
                 })
                 .FirstOrDefaultAsync();
+
+            if (specialty == null)
+                throw new KeyNotFoundException("Specialty not found.");
+
+            return specialty;
         }
+
 
         //ADMIN HE THONG
         //Cap nhat thuoc tinh mot khoa:
-        public async Task<bool> UpdateAsync(int id, UpsertSpecialtyDto dto)
+        public async Task UpdateAsync(int id, UpsertSpecialtyDto dto)
         {
-            var entity = await _clinicDb.Specialties.FirstOrDefaultAsync(s => s.SpecialtyId == id);
-            if (entity == null)
-            {
-                return false;
-            }
+            var entity = await _clinicDb.Specialties
+                .FirstOrDefaultAsync(s => s.SpecialtyId == id);
 
-            var name  = dto.Name.Trim();
-            
-            var exists = await _clinicDb.Specialties.AnyAsync(s => s.Name.ToLower() == name.ToLower() && s.SpecialtyId != id);
+            if (entity == null)
+                throw new KeyNotFoundException("Specialty not found.");
+
+            var name = dto.Name.Trim();
+
+            var exists = await _clinicDb.Specialties
+                .AnyAsync(s => s.Name.ToLower() == name.ToLower() && s.SpecialtyId != id);
 
             if (exists)
-            {
                 throw new InvalidOperationException("Specialty name already exists.");
-            }
-
 
             entity.Name = name;
             entity.Description = dto.Description?.Trim();
             entity.UpdatedAt = DateTime.UtcNow;
 
             await _clinicDb.SaveChangesAsync();
-            
-            return true;
         }
+
 
         //ADMIN HE THONG
         //Thay doi trang thai mot khoa:
-        public async Task<bool> ChangeStatusAsync(int id, SpecialtyStatus status)
+        public async Task ChangeStatusAsync(int id, SpecialtyStatus status)
         {
+            var entity = await _clinicDb.Specialties
+                .FirstOrDefaultAsync(s => s.SpecialtyId == id);
 
-            //LAY THONG TIN MOT KHOA QUA ID:
-            var entity = await _clinicDb.Specialties.FirstOrDefaultAsync(s => s.SpecialtyId == id);
+            if (entity == null)
+                throw new KeyNotFoundException("Specialty not found.");
 
-            if (entity == null) return false; 
-
-            //Kiem tra dieu kien de thay doi trang thai:
             if (status == SpecialtyStatus.Closed)
             {
-                var hasActiveDoctors = await _clinicDb.Doctors.AnyAsync (d =>
-                d.SpecialtyId ==id && d.User.Status == UserStatus.Active);
+                var hasActiveDoctors = await _clinicDb.Doctors.AnyAsync(d =>
+                    d.SpecialtyId == id &&
+                    d.User.Status == UserStatus.Active);
 
                 if (hasActiveDoctors)
-                {
                     throw new InvalidOperationException(
-              "Cannot close specialty because active doctors exist.");
-                }
+                        "Cannot close specialty because active doctors exist.");
             }
 
             entity.IsActive = status;
-            
             entity.UpdatedAt = DateTime.UtcNow;
 
             await _clinicDb.SaveChangesAsync();
-            return true;
         }
+
     }
 }

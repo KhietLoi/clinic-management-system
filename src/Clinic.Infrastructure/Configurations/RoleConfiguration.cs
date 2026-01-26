@@ -12,7 +12,7 @@ namespace Clinic.Infrastructure.Configurations
     {
         public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<Role> builder)
         {
-            builder.ToTable("Rules");
+            builder.ToTable("Roles");
 
             //Primary Key:
             builder.HasKey(x => x.RoleId);

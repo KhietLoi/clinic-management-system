@@ -397,7 +397,7 @@ namespace Clinic.Infrastructure.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Rules", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Clinic.Domain.Entities.Specialty", b =>

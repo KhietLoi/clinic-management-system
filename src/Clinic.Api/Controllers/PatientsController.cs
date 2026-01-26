@@ -26,60 +26,39 @@ namespace Clinic.Api.Controllers
             return Ok(new { items, total, page, pageSize });
         }
 
+
+        //GET: api/v1/patients/5
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var patient = await _patientService.GetByIdAsync(id);
-            if (patient == null)
-            {
-                return NotFound();
-            }
             return Ok(patient);
 
         }
 
+        //POST: api/v1/patients
         [HttpPost]
         public async Task<IActionResult> Create (CreatePatientDto dto)
         {
-            try
-            {
-                var id = await _patientService.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new { id }, new {id});
-            }catch(InvalidOperationException ex)
-            {
-                return Conflict(new { message = ex.Message });
-
-            }
+           
+            var id = await _patientService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id }, new {id});
+            
         }
-
+        // PUT: api/v1/patients/5
         [HttpPut("{id:int}")]
         public async Task<IActionResult> Update(int id, UpdatePatientDto dto)
         {
-            try
-            {
-                var ok = await _patientService.UpdateAsync(id, dto);
-                if (!ok) return NotFound();
-                return NoContent();
-            }
-            catch (InvalidOperationException ex)
-            {
-                return Conflict(new { message = ex.Message });
-            }
+            await _patientService.UpdateAsync(id, dto);
+            return NoContent();
         }
 
+        // DELETE: api/v1/patients/5
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                var ok = await _patientService.DeleteAsync(id);
-                if (!ok) return NotFound();
-                return NoContent();
-            }
-            catch (InvalidOperationException ex)
-            {
-                return Conflict(new { message = ex.Message });
-            }
+            await _patientService.DeleteAsync(id);
+            return NoContent();
         }
 
 

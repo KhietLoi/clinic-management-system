@@ -19,4 +19,8 @@
     <ProjectReference Include="..\Clinic.Infrastructure\Clinic.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DTOs\Users\" />
+  </ItemGroup>
+
 </Project>

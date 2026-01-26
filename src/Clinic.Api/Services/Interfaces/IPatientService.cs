@@ -6,12 +6,12 @@ namespace Clinic.Api.Services.Interfaces
     {
         Task<(IReadOnlyList<PatientResponseDto> Items, int Total)> GetListAsync(string? keyword, string? phone, int page, int pageSize);
 
-        Task<PatientResponseDto?> GetByIdAsync(int id);
+        Task<PatientResponseDto> GetByIdAsync(int id);
 
         Task<int> CreateAsync(CreatePatientDto dto);
 
-        Task<bool> UpdateAsync(int id, UpdatePatientDto dto);
+        Task UpdateAsync(int id, UpdatePatientDto dto);
 
-        Task<bool> DeleteAsync(int id);
+        Task DeleteAsync(int id);
     }
 }

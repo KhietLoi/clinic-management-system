@@ -16,12 +16,9 @@ namespace Clinic.Api.Controllers
         public SpecialtiesController(ISpecialtyService specialtyService)
         {
             _specialtyService = specialtyService;
-
         }
 
-
-        //GET: api/v1/specialties? keyword = tim:
-
+        // GET: api/v1/specialties?keyword=tim
         [HttpGet]
         public async Task<IActionResult> GetAll([FromQuery] string? keyword)
         {
@@ -29,71 +26,38 @@ namespace Clinic.Api.Controllers
             return Ok(result);
         }
 
-        //GET: api/v1/specialties/5
-
+        // GET: api/v1/specialties/5
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
             var result = await _specialtyService.GetByIdAsync(id);
-
-            if (result == null) { return NotFound(); }
-
             return Ok(result);
         }
 
-
-        //POST: api/v1/specialties
+        // POST: api/v1/specialties
         [HttpPost]
         /*[Authorize(Roles = "Admin")]*/
         public async Task<IActionResult> Create([FromBody] UpsertSpecialtyDto dto)
         {
-            try
-            {
-                var id = await _specialtyService.CreateAsync(dto);
-                return CreatedAtAction(nameof(GetById), new {id},null);
-
-            }
-            catch (InvalidOperationException ex)
-            {
-                return BadRequest(new {message = ex.Message});
-
-            }
-
+            var id = await _specialtyService.CreateAsync(dto);
+            return CreatedAtAction(nameof(GetById), new { id }, null);
         }
 
-        //Change status:
-        //PATCH: api/v1/specialties/5/status?status = 0;
+        // Change status:
+        // PATCH: api/v1/specialties/5/status?status=0
         [HttpPatch("{id:int}/status")]
         public async Task<IActionResult> ChangeStatus(int id, [FromQuery] SpecialtyStatus status)
         {
-            try
-            {
-                var success = await _specialtyService.ChangeStatusAsync(id, status);
-                if(!success) return NotFound();
-
-                return NoContent();
-
-            }catch(InvalidOperationException ex)
-            {
-                return BadRequest(new {message = ex.Message});
-            }
+            await _specialtyService.ChangeStatusAsync(id, status);
+            return NoContent();
         }
 
-
-        //DELETE: api/specialties/5
-
+        // DELETE: api/v1/specialties/5
         [HttpDelete("{id:int}")]
         public async Task<IActionResult> Delete(int id)
         {
-            try
-            {
-                var success = await _specialtyService.DeleteAsync(id);
-                if(!success) return NotFound();
-                return NoContent();
-            }catch(InvalidOperationException ex)
-            {
-                return BadRequest(new {message = ex.Message});
-            }
+            await _specialtyService.DeleteAsync(id);
+            return NoContent();
         }
     }
 }

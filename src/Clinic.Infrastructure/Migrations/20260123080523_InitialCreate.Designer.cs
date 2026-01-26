@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.Infrastructure.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20260122101632_InitialCreate")]
+    [Migration("20260123080523_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -400,7 +400,7 @@ namespace Clinic.Infrastructure.Migrations
 
                     b.HasKey("RoleId");
 
-                    b.ToTable("Rules", (string)null);
+                    b.ToTable("Roles", (string)null);
                 });
 
             modelBuilder.Entity("Clinic.Domain.Entities.Specialty", b =>

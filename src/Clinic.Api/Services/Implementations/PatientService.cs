@@ -88,27 +88,28 @@ namespace Clinic.Api.Services.Implementations
             return entity.PatientId;
         }
 
-        public async Task<bool> DeleteAsync(int id)
+        public async Task DeleteAsync(int id)
         {
             var patient = await _db.Patients.FirstOrDefaultAsync(p => p.PatientId == id);
-            if (patient == null) return false;
+            if (patient == null)
+                throw new KeyNotFoundException("Patient not found");
 
-            // 1) Chặn nếu có medical record
-            var hasMedicalRecords = await _db.MedicalRecords.AnyAsync(m => m.PatientId == id);
+            var hasMedicalRecords = await _db.MedicalRecords
+                .AnyAsync(m => m.PatientId == id);
+
             if (hasMedicalRecords)
                 throw new InvalidOperationException("Cannot delete patient with medical history.");
 
-            // 2) Chặn nếu có appointment không phải Cancelled/NoShow
             var hasBlockingAppointments = await _db.Appointments.AnyAsync(a =>
                 a.PatientId == id &&
                 a.Status != AppointmentStatus.Cancelled &&
-                a.Status != AppointmentStatus.NoShow 
+                a.Status != AppointmentStatus.NoShow
             );
 
             if (hasBlockingAppointments)
-                throw new InvalidOperationException("Cannot delete patient because active or completed appointments exist.");
+                throw new InvalidOperationException(
+                    "Cannot delete patient because active or completed appointments exist.");
 
-            // 3) Xóa các appointment còn lại (chỉ Cancelled/NoShow)
             await using var tx = await _db.Database.BeginTransactionAsync();
 
             var appointmentsToDelete = await _db.Appointments
@@ -122,14 +123,12 @@ namespace Clinic.Api.Services.Implementations
 
             await _db.SaveChangesAsync();
             await tx.CommitAsync();
-
-            return true;
         }
 
-        public async Task<PatientResponseDto?> GetByIdAsync(int id)
-        {
 
-            return await _db.Patients.AsNoTracking()
+        public async Task<PatientResponseDto> GetByIdAsync(int id)
+        {
+            var patient = await _db.Patients.AsNoTracking()
                 .Where(p => p.PatientId == id)
                 .Select(p => new PatientResponseDto
                 {
@@ -143,25 +142,28 @@ namespace Clinic.Api.Services.Implementations
                     Address = p.Address
                 })
                 .FirstOrDefaultAsync();
-            throw new NotImplementedException();
+
+            if (patient == null)
+                throw new KeyNotFoundException("Patient not found");
+
+            return patient;
         }
 
-       
 
-        public async Task<bool> UpdateAsync(int id, UpdatePatientDto dto)
+
+        public async Task UpdateAsync(int id, UpdatePatientDto dto)
         {
-
             var entity = await _db.Patients.FirstOrDefaultAsync(p => p.PatientId == id);
-            if (entity == null) return false;
+            if (entity == null)
+                throw new KeyNotFoundException("Patient not found");
 
-            //Validate Phone
             var phone = dto.Phone.Trim();
             var phoneExists = await _db.Patients
                 .AnyAsync(p => p.Phone == phone && p.PatientId != id);
 
             if (phoneExists)
                 throw new InvalidOperationException("Phone already exists.");
-            //Validate NationalId
+
             var nationalid = dto.NationalId.Trim();
             var nationalidExists = await _db.Patients
                 .AnyAsync(p => p.NationalId == nationalid && p.PatientId != id);
@@ -169,22 +171,17 @@ namespace Clinic.Api.Services.Implementations
             if (nationalidExists)
                 throw new InvalidOperationException("NationalId already exists.");
 
-            //Update
             entity.FullName = dto.FullName;
             entity.NationalId = nationalid;
             entity.DateOfBirth = dto.DateOfBirth;
             entity.Gender = dto.Gender;
-            entity.Phone = dto.Phone;
-            entity.Email = dto.Email;
-            entity.Address = dto.Address;
-
+            entity.Phone = phone;
+            entity.Email = dto.Email?.Trim();
+            entity.Address = dto.Address?.Trim();
             entity.UpdatedAt = DateTime.UtcNow;
 
             await _db.SaveChangesAsync();
-            return true;
-
-
-
         }
+
     }
 }

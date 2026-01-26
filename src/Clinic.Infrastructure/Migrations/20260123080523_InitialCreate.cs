@@ -50,7 +50,7 @@ namespace Clinic.Infrastructure.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Rules",
+                name: "Roles",
                 columns: table => new
                 {
                     RoleId = table.Column<int>(type: "int", nullable: false)
@@ -60,7 +60,7 @@ namespace Clinic.Infrastructure.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Rules", x => x.RoleId);
+                    table.PrimaryKey("PK_Roles", x => x.RoleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -98,9 +98,9 @@ namespace Clinic.Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Users", x => x.UserId);
                     table.ForeignKey(
-                        name: "FK_Users_Rules_RoleId",
+                        name: "FK_Users_Roles_RoleId",
                         column: x => x.RoleId,
-                        principalTable: "Rules",
+                        principalTable: "Roles",
                         principalColumn: "RoleId",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -443,7 +443,7 @@ namespace Clinic.Infrastructure.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Rules");
+                name: "Roles");
         }
     }
 }

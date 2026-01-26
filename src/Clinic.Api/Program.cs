@@ -6,6 +6,11 @@ using Clinic.Infrastructure.Extensions;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 
+
+//Using Global Exception Handler:
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers()
     .AddJsonOptions(o =>
@@ -36,11 +41,57 @@ Console.WriteLine("=== ClinicDB CS === " + cs);
 builder.Services.AddInfrastructure(builder.Configuration);
 
 
-//DI:
+//Add Dependency Injection
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<ISpecialtyService, SpecialtyService>();
+builder.Services.AddScoped<IRoleService, RoleService>();
 
 var app = builder.Build();
+
+
+//Configure Global Exception Handler Middleware:
+
+app.UseExceptionHandler(erroraApp =>
+{
+    erroraApp.Run(async context =>
+    {
+        var exception = context.Features
+        .Get<IExceptionHandlerFeature>()?.Error;
+
+        int statusCode;
+        string message;
+
+        switch (exception)
+        {
+            case KeyNotFoundException:
+                statusCode = StatusCodes.Status404NotFound; // 404
+                message = exception.Message;
+                break;
+
+            case InvalidOperationException:
+                statusCode = StatusCodes.Status409Conflict; // 409
+                message = exception.Message;
+                break;
+
+            case ArgumentException:
+                statusCode = StatusCodes.Status400BadRequest; // 400
+                message = exception.Message;
+                break;
+
+            default:
+                statusCode = StatusCodes.Status500InternalServerError; // 500
+                message = "An unexpected error occurred.";
+                break;
+        }
+        context.Response.StatusCode = statusCode;
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(new
+        {
+            statusCode = statusCode,
+            error = message
+        });
+    });
+});
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,26 +101,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-/*
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
 
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast = Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
-*/
 //SEEDER
 using (var scope = app.Services.CreateScope())
 {
@@ -80,8 +112,3 @@ using (var scope = app.Services.CreateScope())
 app.MapControllers();
 app.Run();
 
-/*record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
-*/
