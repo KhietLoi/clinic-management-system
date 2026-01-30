@@ -45,6 +45,10 @@ builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddScoped<IPatientService, PatientService>();
 builder.Services.AddScoped<ISpecialtyService, SpecialtyService>();
 builder.Services.AddScoped<IRoleService, RoleService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPasswordHasherService, PasswordHasherService>();
+
+
 
 var app = builder.Build();
 
