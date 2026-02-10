@@ -70,6 +70,7 @@ namespace Clinic.Infrastructure.Migrations
                     SpecialtyId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    CodePrefix = table.Column<string>(type: "nvarchar(5)", maxLength: 5, nullable: false),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -135,6 +136,7 @@ namespace Clinic.Infrastructure.Migrations
                 {
                     DoctorId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    DoctorCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     FullName = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     Phone = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(150)", maxLength: 150, nullable: true),
@@ -324,6 +326,12 @@ namespace Clinic.Infrastructure.Migrations
                 filter: "[SpecialtyId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Doctors_DoctorCode",
+                table: "Doctors",
+                column: "DoctorCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Doctors_Phone",
                 table: "Doctors",
                 column: "Phone",
@@ -383,6 +391,12 @@ namespace Clinic.Infrastructure.Migrations
                 name: "IX_Prescriptions_MedicalRecordId",
                 table: "Prescriptions",
                 column: "MedicalRecordId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Specialties_CodePrefix",
+                table: "Specialties",
+                column: "CodePrefix",
                 unique: true);
 
             migrationBuilder.CreateIndex(

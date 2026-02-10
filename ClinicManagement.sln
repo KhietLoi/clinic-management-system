@@ -5,21 +5,18 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{92B1C6BF-22A2-4AD2-A503-987924A55F4F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Api", "src\Clinic.Api\Clinic.Api.csproj", "{F6459416-402B-4F79-A7E1-668A48C45ABF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Api", "src\Clinic.Api\Clinic.Api.csproj", "{F6459416-402B-4F79-A7E1-668A48C45ABF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Web", "src\Clinic.Web\Clinic.Web.csproj", "{3F77F756-8749-45DB-A08A-4D023A21FCDD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Web", "src\Clinic.Web\Clinic.Web.csproj", "{3F77F756-8749-45DB-A08A-4D023A21FCDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Domain", "src\Clinic.Domain\Clinic.Domain.csproj", "{279C5255-7528-4C45-B4D5-EEED778C56BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Domain", "src\Clinic.Domain\Clinic.Domain.csproj", "{279C5255-7528-4C45-B4D5-EEED778C56BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Infrastructure", "src\Clinic.Infrastructure\Clinic.Infrastructure.csproj", "{5A7364F1-27FF-43EE-9875-468C20DFF0DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Infrastructure", "src\Clinic.Infrastructure\Clinic.Infrastructure.csproj", "{5A7364F1-27FF-43EE-9875-468C20DFF0DB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F6459416-402B-4F79-A7E1-668A48C45ABF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -38,6 +35,9 @@ Global
 		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5A7364F1-27FF-43EE-9875-468C20DFF0DB}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{F6459416-402B-4F79-A7E1-668A48C45ABF} = {92B1C6BF-22A2-4AD2-A503-987924A55F4F}

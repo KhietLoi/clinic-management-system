@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.Infrastructure.Migrations
 {
     [DbContext(typeof(ClinicDbContext))]
-    [Migration("20260123080523_InitialCreate")]
+    [Migration("20260210044534_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -131,6 +131,11 @@ namespace Clinic.Infrastructure.Migrations
                     b.Property<DateOnly>("DateOfBirth")
                         .HasColumnType("date");
 
+                    b.Property<string>("DoctorCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
                     b.Property<string>("Email")
                         .HasMaxLength(150)
                         .HasColumnType("nvarchar(150)");
@@ -161,6 +166,9 @@ namespace Clinic.Infrastructure.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("DoctorId");
+
+                    b.HasIndex("DoctorCode")
+                        .IsUnique();
 
                     b.HasIndex("Phone")
                         .IsUnique();
@@ -411,6 +419,11 @@ namespace Clinic.Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SpecialtyId"));
 
+                    b.Property<string>("CodePrefix")
+                        .IsRequired()
+                        .HasMaxLength(5)
+                        .HasColumnType("nvarchar(5)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
@@ -432,6 +445,9 @@ namespace Clinic.Infrastructure.Migrations
                         .HasColumnType("datetime2");
 
                     b.HasKey("SpecialtyId");
+
+                    b.HasIndex("CodePrefix")
+                        .IsUnique();
 
                     b.HasIndex("Name")
                         .IsUnique();

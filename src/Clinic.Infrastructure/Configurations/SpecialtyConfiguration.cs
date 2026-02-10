@@ -28,6 +28,13 @@ namespace Clinic.Infrastructure.Configurations
                 .HasIndex(x => x.Name)
                 .IsUnique();
 
+            //Thêm CodePrefix
+            builder.Property(x => x.CodePrefix)
+                .HasMaxLength(5)
+                .IsRequired();
+            builder.HasIndex (x => x.CodePrefix).IsUnique();
+
+
             builder.Property(x => x.IsActive)
                 .HasDefaultValue(SpecialtyStatus.Active);
             //1-1

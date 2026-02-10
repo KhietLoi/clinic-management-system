@@ -30,9 +30,9 @@ namespace Clinic.Infrastructure.Data
             // =========================
             // 2) Specialties
             // =========================
-            var spDerm = new Specialty { Name = "Dermatology", Description = "Skin", CreatedAt = now, UpdatedAt = now };
-            var spCard = new Specialty { Name = "Cardiology", Description = "Heart", CreatedAt = now, UpdatedAt = now };
-            var spGen = new Specialty { Name = "General", Description = "General practice", CreatedAt = now, UpdatedAt = now };
+            var spDerm = new Specialty { Name = "Dermatology", CodePrefix="DER", Description = "Skin", CreatedAt = now, UpdatedAt = now };
+            var spCard = new Specialty { Name = "Cardiology",CodePrefix = "CAR", Description = "Heart", CreatedAt = now, UpdatedAt = now };
+            var spGen = new Specialty { Name = "General",CodePrefix = "GEN", Description = "General practice", CreatedAt = now, UpdatedAt = now };
 
             db.Specialties.AddRange(spDerm, spCard, spGen);
             await db.SaveChangesAsync();

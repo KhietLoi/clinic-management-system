@@ -7,6 +7,9 @@ namespace Clinic.Api.DTOs.Specialties
 
         public int SpecialtyId { get; set; }
         public string Name { get; set; } = null!;
+
+        //Thêm mã chuyên khoa
+        public string CodePrefix { get; set; } = null!;
         public string? Description { get; set; }
 
         public SpecialtyStatus IsActive { get; set; }

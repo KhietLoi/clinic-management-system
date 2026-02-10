@@ -22,18 +22,30 @@ namespace Clinic.Api.Services.Implementations
         public async Task<int> CreateAsync(UpsertSpecialtyDto dto)
         {
             var name = dto.Name.Trim();
+            
+            //Thêm prefix
+            var prefix = dto.CodePrefix.Trim().ToUpper();
 
-            var exists = await _clinicDb.Specialties.AnyAsync(x => x.Name.ToLower() == name.ToLower());
+            //Kiem tra ten chuyen khoa
+            var nameExists = await _clinicDb.Specialties.AnyAsync(x => x.Name.ToLower() == name.ToLower());
 
-            if (exists)
+            if (nameExists)
             {
                 throw new InvalidOperationException("Specialty name already exists.");
+            }
+            //Kiem tra ten prefix
+            var prefixExists = await _clinicDb.Specialties.AnyAsync(x => x.CodePrefix == prefix);
+
+            if (prefixExists)
+            {
+                throw new InvalidOperationException("Code prefix already exists.");
             }
 
             //Tao khoa moi:
             var entity = new Specialty
             {
                 Name = name,
+                CodePrefix = prefix, // bo sung prefix
                 Description = dto.Description?.Trim(),
                 IsActive = SpecialtyStatus.Active,
                 CreatedAt = DateTime.UtcNow,
@@ -89,6 +101,7 @@ namespace Clinic.Api.Services.Implementations
                 .Select(s => new SpecialtyResponseDto
                 {
                     SpecialtyId = s.SpecialtyId,
+                    CodePrefix = s.CodePrefix,
                     Name = s.Name,
                     Description = s.Description,
                     IsActive = s.IsActive
@@ -104,6 +117,7 @@ namespace Clinic.Api.Services.Implementations
                 .Select(s => new SpecialtyResponseDto
                 {
                     SpecialtyId = s.SpecialtyId,
+                    CodePrefix = s.CodePrefix,
                     Name = s.Name,
                     Description = s.Description,
                     IsActive = s.IsActive
@@ -128,14 +142,24 @@ namespace Clinic.Api.Services.Implementations
                 throw new KeyNotFoundException("Specialty not found.");
 
             var name = dto.Name.Trim();
+            var prefix = dto.CodePrefix.Trim().ToUpper();
 
-            var exists = await _clinicDb.Specialties
+            //Kiểm tra tên chuyên khoa
+            var nameExists = await _clinicDb.Specialties
                 .AnyAsync(s => s.Name.ToLower() == name.ToLower() && s.SpecialtyId != id);
 
-            if (exists)
+            if (nameExists)
                 throw new InvalidOperationException("Specialty name already exists.");
 
+            //Kiem tra CodePrefix
+            var prefixExists = await _clinicDb.Specialties
+                .AnyAsync (s => s.CodePrefix == prefix && s.SpecialtyId != id);
+            if (prefixExists)
+            {
+                throw new InvalidOperationException("Code Prefix already exists");
+            }
             entity.Name = name;
+            entity.CodePrefix = prefix;
             entity.Description = dto.Description?.Trim();
             entity.UpdatedAt = DateTime.UtcNow;
 

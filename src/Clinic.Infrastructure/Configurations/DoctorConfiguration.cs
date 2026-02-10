@@ -18,8 +18,12 @@ namespace Clinic.Infrastructure.Configurations
             builder.HasKey(x => x.DoctorId);
 
             //Property:
-            builder.Property(x => x.FullName)
-                .HasMaxLength(200);
+
+            builder.Property (x => x.DoctorCode)
+                .HasMaxLength (20)
+                .IsRequired ();
+
+            builder.HasIndex (x => x.DoctorCode).IsUnique();
 
             //Rang buoc cac thuoc tinh:
             builder.Property(x => x.FullName)
