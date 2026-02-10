@@ -31,7 +31,7 @@ namespace Clinic.Domain.Entities
         public int UserId { get; set; }
 
         //Navigation:
-        public Specialty? Specialty { get; set; }
+        public Specialty Specialty { get; set; } = null!;
         public User User { get; set; } = null!;
 
         public ICollection<Appointment> Appointments { get; set; } = new List<Appointment>();

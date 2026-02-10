@@ -104,6 +104,7 @@ namespace Clinic.Infrastructure.Data
             {
                 FullName = "Dr. Nguyen Van A",
                 Phone = "0900000001",
+                DoctorCode = "DER001",
                 Email = "doctor01@clinic.local",
                 YearOfExperience = 6,
                 DateOfBirth = new DateOnly(1990, 2, 10),
@@ -118,6 +119,7 @@ namespace Clinic.Infrastructure.Data
             {
                 FullName = "Dr. Tran Thi B",
                 Phone = "0900000002",
+                DoctorCode = "CAR001",
                 Email = "doctor02@clinic.local",
                 YearOfExperience = 3,
                 DateOfBirth = new DateOnly(1995, 7, 20),

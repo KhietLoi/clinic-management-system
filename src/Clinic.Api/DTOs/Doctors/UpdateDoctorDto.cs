@@ -24,7 +24,7 @@ namespace Clinic.Api.DTOs.Doctors
         [Required]
         public Gender gender { get; set; }
         
-        public int? SpecialtyId { get; set; }
+        /*public int? SpecialtyId { get; set; }*/
 
 
     }

@@ -7,7 +7,7 @@ namespace Clinic.Api.Services.Interfaces
         Task <List<DoctorResponseDto>> GetAllAsync();
         Task <DoctorResponseDto?> GetByIdAsync (int id);
 
-        Task CreateAsync(CreateDoctordto dto);
+        Task <int> CreateAsync(CreateDoctordto dto);
         Task UpdateAsync (int id, UpdateDoctorDto dto);
 
         Task DeleteAsync (int id);

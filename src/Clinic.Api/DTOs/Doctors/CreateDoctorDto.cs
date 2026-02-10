@@ -20,8 +20,8 @@ namespace Clinic.Api.DTOs.Doctors
         [Range(0,60)]
         public int YearOfExperience { get; set; }
 
-        [Required]
-        public DateOnly DateOfBỉth {  get; set; }
+        
+        public DateOnly DateOfBirth {  get; set; }
 
         [Required]
         public Gender Gender { get; set; }
