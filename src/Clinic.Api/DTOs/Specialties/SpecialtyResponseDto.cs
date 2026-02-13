@@ -12,7 +12,7 @@ namespace Clinic.Api.DTOs.Specialties
         public string CodePrefix { get; set; } = null!;
         public string? Description { get; set; }
 
-        public SpecialtyStatus IsActive { get; set; }
+        public ClinicRoomStatusStatus IsActive { get; set; }
 
     }
 }

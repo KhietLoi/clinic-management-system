@@ -96,8 +96,16 @@ namespace Clinic.Infrastructure.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<int?>("SpecialtyId")
+                    b.Property<string>("RoomCode")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("SpecialtyId")
                         .HasColumnType("int");
+
+                    b.Property<byte>("Status")
+                        .HasColumnType("tinyint");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
@@ -107,9 +115,10 @@ namespace Clinic.Infrastructure.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.HasIndex("SpecialtyId")
-                        .IsUnique()
-                        .HasFilter("[SpecialtyId] IS NOT NULL");
+                    b.HasIndex("RoomCode")
+                        .IsUnique();
+
+                    b.HasIndex("SpecialtyId");
 
                     b.ToTable("ClinicRooms", (string)null);
                 });
@@ -532,9 +541,10 @@ namespace Clinic.Infrastructure.Migrations
             modelBuilder.Entity("Clinic.Domain.Entities.ClinicRoom", b =>
                 {
                     b.HasOne("Clinic.Domain.Entities.Specialty", "Specialty")
-                        .WithOne("ClinicRoom")
-                        .HasForeignKey("Clinic.Domain.Entities.ClinicRoom", "SpecialtyId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany("ClinicRooms")
+                        .HasForeignKey("SpecialtyId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Specialty");
                 });
@@ -672,7 +682,7 @@ namespace Clinic.Infrastructure.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Entities.Specialty", b =>
                 {
-                    b.Navigation("ClinicRoom");
+                    b.Navigation("ClinicRooms");
 
                     b.Navigation("Doctors");
                 });

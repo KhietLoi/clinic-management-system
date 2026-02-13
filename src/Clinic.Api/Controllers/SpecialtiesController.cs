@@ -46,7 +46,7 @@ namespace Clinic.Api.Controllers
         // Change status:
         // PATCH: api/v1/specialties/5/status?status=0
         [HttpPatch("{id:int}/status")]
-        public async Task<IActionResult> ChangeStatus(int id, [FromQuery] SpecialtyStatus status)
+        public async Task<IActionResult> ChangeStatus(int id, [FromQuery] ClinicRoomStatusStatus status)
         {
             await _specialtyService.ChangeStatusAsync(id, status);
             return NoContent();

@@ -11,7 +11,7 @@ namespace Clinic.Api.Services.Interfaces
         Task UpdateAsync(int id, UpsertSpecialtyDto dto);
         Task DeleteAsync(int id);
         // Nghiep vu them, cap nhat trang thai khoa
-        Task ChangeStatusAsync(int id, SpecialtyStatus status);
+        Task ChangeStatusAsync(int id, ClinicRoomStatusStatus status);
 
 
     }

@@ -47,7 +47,7 @@ namespace Clinic.Api.Services.Implementations
                 Name = name,
                 CodePrefix = prefix, // bo sung prefix
                 Description = dto.Description?.Trim(),
-                IsActive = SpecialtyStatus.Active,
+                IsActive = ClinicRoomStatusStatus.Active,
                 CreatedAt = DateTime.UtcNow,
                 UpdatedAt = DateTime.UtcNow
             };
@@ -63,13 +63,13 @@ namespace Clinic.Api.Services.Implementations
         public async Task DeleteAsync(int id)
         {
             var entity = await _clinicDb.Specialties
-                .Include(s => s.ClinicRoom)
+                .Include(s => s.ClinicRooms)
                 .FirstOrDefaultAsync(s => s.SpecialtyId == id);
 
             if (entity == null)
                 throw new KeyNotFoundException("Specialty not found.");
 
-            if (entity.IsActive != SpecialtyStatus.Closed)
+            if (entity.IsActive != ClinicRoomStatusStatus.Closed)
                 throw new InvalidOperationException("Only closed specialties can be deleted.");
 
             var hasAnyDoctor = await _clinicDb.Doctors
@@ -78,12 +78,13 @@ namespace Clinic.Api.Services.Implementations
             if (hasAnyDoctor)
                 throw new InvalidOperationException("Cannot delete specialty because doctors exist.");
 
-            if (entity.ClinicRoom != null)
-                throw new InvalidOperationException("Unassign clinic room first.");
+            if (entity.ClinicRooms.Any())
+                throw new InvalidOperationException("Unassign clinic rooms first.");
 
             _clinicDb.Specialties.Remove(entity);
             await _clinicDb.SaveChangesAsync();
         }
+
 
 
         //Lay danh sach Khoa
@@ -169,7 +170,7 @@ namespace Clinic.Api.Services.Implementations
 
         //ADMIN HE THONG
         //Thay doi trang thai mot khoa:
-        public async Task ChangeStatusAsync(int id, SpecialtyStatus status)
+        public async Task ChangeStatusAsync(int id, ClinicRoomStatusStatus status)
         {
             var entity = await _clinicDb.Specialties
                 .FirstOrDefaultAsync(s => s.SpecialtyId == id);
@@ -177,7 +178,7 @@ namespace Clinic.Api.Services.Implementations
             if (entity == null)
                 throw new KeyNotFoundException("Specialty not found.");
 
-            if (status == SpecialtyStatus.Closed)
+            if (status == ClinicRoomStatusStatus.Closed)
             {
                 var hasActiveDoctors = await _clinicDb.Doctors.AnyAsync(d =>
                     d.SpecialtyId == id &&

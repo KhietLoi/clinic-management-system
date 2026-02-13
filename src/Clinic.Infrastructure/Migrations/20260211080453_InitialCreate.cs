@@ -113,11 +113,13 @@ namespace Clinic.Infrastructure.Migrations
                     ClinicRoomId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
+                    RoomCode = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
+                    Status = table.Column<byte>(type: "tinyint", nullable: false),
                     Location = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: true),
                     Description = table.Column<string>(type: "nvarchar(500)", maxLength: 500, nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    SpecialtyId = table.Column<int>(type: "int", nullable: true)
+                    SpecialtyId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -319,11 +321,15 @@ namespace Clinic.Infrastructure.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_ClinicRooms_RoomCode",
+                table: "ClinicRooms",
+                column: "RoomCode",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ClinicRooms_SpecialtyId",
                 table: "ClinicRooms",
-                column: "SpecialtyId",
-                unique: true,
-                filter: "[SpecialtyId] IS NOT NULL");
+                column: "SpecialtyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Doctors_DoctorCode",

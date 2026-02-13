@@ -18,11 +18,12 @@ namespace Clinic.Domain.Entities
         public DateTime CreatedAt { get; set; }
         public DateTime? UpdatedAt { get; set; } = null;
 
-        public SpecialtyStatus IsActive { get; set; } = SpecialtyStatus.Active;
+        public ClinicRoomStatusStatus IsActive { get; set; } = ClinicRoomStatusStatus.Active;
 
         //Navigation
         public ICollection<Doctor> Doctors { get; set; } = new List<Doctor>();
-        public ClinicRoom? ClinicRoom { get; set; }
+        public ICollection<ClinicRoom> ClinicRooms { get; set; } = new List<ClinicRoom>();
+
 
 
 

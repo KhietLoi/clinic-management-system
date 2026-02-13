@@ -36,11 +36,11 @@ namespace Clinic.Infrastructure.Configurations
 
 
             builder.Property(x => x.IsActive)
-                .HasDefaultValue(SpecialtyStatus.Active);
+                .HasDefaultValue(ClinicRoomStatusStatus.Active);
             //1-1
-            builder.HasOne(s => s.ClinicRoom)
+            builder.HasMany(s => s.ClinicRooms)
                .WithOne(r => r.Specialty)
-               .HasForeignKey<ClinicRoom>(r => r.SpecialtyId)
+               .HasForeignKey(r => r.SpecialtyId)
                .OnDelete(DeleteBehavior.Restrict);
 
             /*  //1-n Doctors:

@@ -51,11 +51,6 @@ namespace Clinic.Infrastructure.Configurations
                 .HasForeignKey (x => x.DoctorId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-
-
-
-
-
         }
     }
 }

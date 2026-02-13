@@ -9,7 +9,7 @@ public class PasswordHasherService : IPasswordHasherService
     {
         return _hasher.HashPassword(null!, password);
     }
-
+ 
     public bool Verify(string hashedPassword, string providedPassword)
     {
         var result = _hasher.VerifyHashedPassword(

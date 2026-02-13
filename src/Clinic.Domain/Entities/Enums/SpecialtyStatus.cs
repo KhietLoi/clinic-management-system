@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Clinic.Domain.Entities.Enums
 {
-    public  enum  SpecialtyStatus : byte
+    public  enum  ClinicRoomStatusStatus : byte
     {
         Active = 0, //dang hoat dong     
         Closed = 1, //Tam ngung, hoat ngung luon

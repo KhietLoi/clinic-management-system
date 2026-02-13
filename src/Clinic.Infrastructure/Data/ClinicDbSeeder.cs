@@ -40,10 +40,54 @@ namespace Clinic.Infrastructure.Data
             // =========================
             // 3) ClinicRooms
             // =========================
-            var room101 = new ClinicRoom { Name = "Room 101", Location = "Floor 1", Description = "General exam room", CreatedAt = now, UpdatedAt = now };
-            var room201 = new ClinicRoom { Name = "Room 201", Location = "Floor 2", Description = "Specialist room", CreatedAt = now, UpdatedAt = now };
+            var roomCar01 = new ClinicRoom
+            {
+                Name = "Cardiology Room 1",
+                RoomCode = "ROOM-CAR-01",
+                SpecialtyId = spCard.SpecialtyId,
+                Location = "Floor 1",
+                Description = "Cardiology examination room",
+                Status = ClinicRoomStatus.Active,
+                CreatedAt = now,
+                UpdatedAt = now
+            };
 
-            db.ClinicRooms.AddRange(room101, room201);
+            var roomCar02 = new ClinicRoom
+            {
+                Name = "Cardiology Room 2",
+                RoomCode = "ROOM-CAR-02",
+                SpecialtyId = spCard.SpecialtyId,
+                Location = "Floor 1",
+                Description = "Second cardiology room",
+                Status = ClinicRoomStatus.Active,
+                CreatedAt = now,
+                UpdatedAt = now
+            };
+
+            var roomGen01 = new ClinicRoom
+            {
+                Name = "General Room 1",
+                RoomCode = "ROOM-GEN-01",
+                SpecialtyId = spGen.SpecialtyId,
+                Location = "Floor 2",
+                Description = "Neurology specialist room",
+                Status = ClinicRoomStatus.Active,
+                CreatedAt = now,
+                UpdatedAt = now
+            };
+            var roomDer01 = new ClinicRoom
+            {
+                Name = "Dermatology Room 1",
+                RoomCode = "ROOM-DER-01",
+                SpecialtyId = spDerm.SpecialtyId,
+                Location = "Floor 2",
+                Description = "Dermatology specialist room",
+                Status = ClinicRoomStatus.Active,
+                CreatedAt = now,
+                UpdatedAt = now
+            };
+
+            db.ClinicRooms.AddRange(roomCar01, roomCar02, roomDer01, roomGen01);
             await db.SaveChangesAsync();
 
             // =========================
@@ -207,7 +251,7 @@ namespace Clinic.Infrastructure.Data
                 UpdatedAt = now,
                 PatientId = p1.PatientId,
                 DoctorId = d1.DoctorId,
-                ClinicRoomId = room201.ClinicRoomId
+                ClinicRoomId = roomDer01.ClinicRoomId
             };
 
             var a2 = new Appointment
@@ -221,7 +265,7 @@ namespace Clinic.Infrastructure.Data
                 UpdatedAt = now,
                 PatientId = p2.PatientId,
                 DoctorId = d2.DoctorId,
-                ClinicRoomId = room101.ClinicRoomId
+                ClinicRoomId = roomGen01.ClinicRoomId
             };
 
             var a3 = new Appointment
@@ -235,7 +279,7 @@ namespace Clinic.Infrastructure.Data
                 UpdatedAt = now,
                 PatientId = p3.PatientId,
                 DoctorId = d1.DoctorId,
-                ClinicRoomId = room201.ClinicRoomId
+                ClinicRoomId = roomCar01.ClinicRoomId
             };
 
             db.Appointments.AddRange(a1, a2, a3);
